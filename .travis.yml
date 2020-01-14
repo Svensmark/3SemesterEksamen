@@ -21,7 +21,7 @@ script:
   - npm install
   - npm install -g surge
   - npm run build
-  - surge --project ./build --domain ca3-frontend.svense.dk
+  - surge --project ./build --domain eksamen1.svense.dk
 
 services:
    - mysql
