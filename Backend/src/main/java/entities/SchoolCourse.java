@@ -88,6 +88,11 @@ public class SchoolCourse implements Serializable {
         this.classes.add(sc);
     }
 
+    @Override
+    public String toString() {
+        return "SchoolCourse{" + "id=" + id + ", courseName=" + courseName + ", description=" + description + ", classes=" + classes + '}';
+    }
+
     
 
     

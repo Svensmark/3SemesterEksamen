@@ -1,4 +1,4 @@
-const URL = "https://asgerhs.dk/CA3";
+const URL = "http://localhost:8080/securitystarter";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -52,15 +52,15 @@ function ApiFacade() {
         return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
     }
 
-    const fetchData = () => {
-        return fetch(URL + "/api/swapi/demo", makeOptions("GET")).then(handleHttpErrors);
+    const fetchData1 = () => {
+        return fetch(URL + "/api/SchoolCourse/all", makeOptions("GET")).then(handleHttpErrors);
     }
 
     return {
         login,
         logout,
         fetchUser,
-        fetchData
+        fetchData1
     }
 
 }

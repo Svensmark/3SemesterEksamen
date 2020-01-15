@@ -2,7 +2,11 @@ package utils;
 
 
 import entities.Role;
+import entities.SchoolClass;
+import entities.SchoolCourse;
 import entities.User;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,7 +15,7 @@ public class SetupTestUsers {
 
   public static void main(String[] args) {
 
-    EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+    EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
     EntityManager em = emf.createEntityManager();
     
     // IMPORTAAAAAAAAAANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -34,6 +38,19 @@ public class SetupTestUsers {
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
+    
+    List<SchoolClass> sc = new ArrayList();
+    
+    SchoolCourse sc1 = new SchoolCourse("Course name1", "Fall 2010", sc);
+    SchoolCourse sc2 = new SchoolCourse("Course name2", "Winter 2010", sc);
+    SchoolCourse sc3 = new SchoolCourse("Course name3", "Spring 2010");
+    SchoolCourse sc4 = new SchoolCourse("Course name4", "Summer 2010");
+
+    em.persist(sc1);
+    em.persist(sc2);
+    em.persist(sc3);
+    em.persist(sc4);
+    
     em.persist(userRole);
     em.persist(adminRole);
     em.persist(user);

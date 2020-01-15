@@ -29,7 +29,7 @@ public class CourseFacadeTest {
     //
     private static EntityManagerFactory emf;
     private static SchoolCourseFacade facade;
-    private ArrayList<SchoolCourseDTO> courses = new ArrayList();
+    private final ArrayList<SchoolCourseDTO> courses = new ArrayList();
 
     //
     public CourseFacadeTest() {
@@ -69,15 +69,17 @@ public class CourseFacadeTest {
             SchoolCourse sc2 = new SchoolCourse("Geomatiker","Description GEO",sc);
             SchoolCourse sc3 = new SchoolCourse("Graphamatiker","Description GRAPH",sc);
             
-            courses.add(new SchoolCourseDTO(sc1));
-            courses.add(new SchoolCourseDTO(sc2));
-            courses.add(new SchoolCourseDTO(sc3));
-            
             em.persist(sc1);
             em.persist(sc2);
             em.persist(sc3);
             
-            em.getTransaction().commit();
+            em.getTransaction().commit();  
+            
+            for (SchoolCourse schoolcourse : em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList()) {
+                SchoolCourseDTO dto = new SchoolCourseDTO(schoolcourse);
+                courses.add(dto);
+            }
+            
         } finally {
             em.close();
         }

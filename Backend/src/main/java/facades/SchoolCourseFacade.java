@@ -7,8 +7,8 @@ package facades;
 
 import entities.SchoolCourse;
 import entities.dto.SchoolCourseDTO;
-import entities.dto.SchoolTeacherDTO;
 import errorhandling.NotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,6 +36,14 @@ public class SchoolCourseFacade {
         }
         return instance;
     }
+    
+    public static SchoolCourseFacade getSchoolCourseFacade() {
+        if (instance == null) {
+            instance = new SchoolCourseFacade();
+        }
+        return instance;
+    }
+
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -43,7 +51,14 @@ public class SchoolCourseFacade {
 
     //
     public List<SchoolCourseDTO> getAllCourses() {
-        return getEntityManager().createQuery("SELECT new entities.dto.SchoolCourseDTO(schoolcourse) FROM SchoolCourse schoolcourse", SchoolCourseDTO.class).getResultList();
+        List<SchoolCourse> sc = getEntityManager().createQuery("SELECT SchoolCourse FROM SchoolCourse schoolcourse", SchoolCourse.class).getResultList();
+        ArrayList<SchoolCourseDTO> scdto = new ArrayList();
+        for (SchoolCourse schoolCourse : sc) {
+            SchoolCourseDTO dto = new SchoolCourseDTO(schoolCourse);
+            System.out.println(dto);
+            scdto.add(dto);
+        }
+        return scdto;
     }
 
     public void addCourse(SchoolCourseDTO scdto) {

@@ -19,15 +19,19 @@ public class SchoolCourseDTO {
     private String courseName;
     private String description;
     private List<SchoolClassDTO> classes;
-    private Long id;
+    private int amountOfClasses;
+    private final Long id;
 
     //
     public SchoolCourseDTO(SchoolCourse sco) {
         this.courseName = sco.getCourseName();
         this.description = sco.getDescription();
         if (sco.getClasses() != null) {
-            for (int i = 0; i < sco.getClasses().size(); ++i) {
-                this.classes.add(new SchoolClassDTO(sco.getClasses().get(i)));
+            if (!sco.getClasses().isEmpty()) {
+                for (int i = 0; i < sco.getClasses().size(); ++i) {
+                    this.classes.add(new SchoolClassDTO(sco.getClasses().get(i)));
+                }
+                this.amountOfClasses = classes.size();
             }
         }
         this.id = sco.getId();
@@ -70,7 +74,9 @@ public class SchoolCourseDTO {
         return id;
     }
 
+    public int getAmountOfClasses() {
+        return amountOfClasses;
+    }
 
-    
-    
+
 }
