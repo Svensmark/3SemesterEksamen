@@ -19,6 +19,7 @@ public class SchoolCourseDTO {
     private String courseName;
     private String description;
     private List<SchoolClassDTO> classes;
+    private Long id;
 
     //
     public SchoolCourseDTO(SchoolCourse sco) {
@@ -29,6 +30,7 @@ public class SchoolCourseDTO {
                 this.classes.add(new SchoolClassDTO(sco.getClasses().get(i)));
             }
         }
+        this.id = sco.getId();
     }
 
     //
@@ -64,4 +66,11 @@ public class SchoolCourseDTO {
         this.classes.add(sc);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+
+    
+    
 }

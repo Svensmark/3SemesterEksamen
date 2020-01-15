@@ -8,6 +8,7 @@ package facades;
 import entities.SchoolClass;
 import entities.SchoolCourse;
 import entities.dto.SchoolCourseDTO;
+import errorhandling.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -90,17 +91,20 @@ public class CourseFacadeTest {
     }
     
     @Test
-    public void testAddClass() {
+    public void testAddCourse() {
         EntityManager em = emf.createEntityManager();
         int before = em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList().size();
-        System.out.println(before);
         facade.addCourse(new SchoolCourseDTO(new SchoolCourse("Course 1", "Desc 1")));
         int after = em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList().size();
         assertEquals(before+1,after);
     }
     
     @Test
-    public void testRemoveClass() {
-        
+    public void testDeleteCourse() throws NotFoundException{
+        EntityManager em = emf.createEntityManager();
+        int before = em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList().size();
+        facade.deleteCourse(em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList().get(0).getId());
+        int after = em.createQuery("Select SchoolCourse from SchoolCourse schoolcourse", SchoolCourse.class).getResultList().size();
+        assertEquals(before-1,after);
     }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 public class SchoolTeacherDTO {
     
     //Fields
+    Long id;
     private String name;
     private List<SchoolClassDTO> classes;
     
@@ -24,6 +25,7 @@ public class SchoolTeacherDTO {
     //Con
     public SchoolTeacherDTO(SchoolTeacher st) {
         this.name = st.getName();
+        this.id = st.getId();
         List<SchoolClass> sc = st.getClasses();
         for (int i = 0; i < sc.size(); ++i) {
             classes.add(new SchoolClassDTO(sc.get(i)));

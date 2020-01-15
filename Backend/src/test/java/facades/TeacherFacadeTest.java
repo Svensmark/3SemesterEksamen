@@ -100,4 +100,8 @@ public class TeacherFacadeTest {
         assertEquals(teachers.size(),facade.getAllTeachers().size());
     }
 
+    @Test
+    public void testGetSchoolClassesByName() {
+        
+    }
 }

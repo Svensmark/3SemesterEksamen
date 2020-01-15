@@ -8,8 +8,8 @@ package facades;
 import entities.SchoolClass;
 import entities.SchoolTeacher;
 import entities.dto.SchoolClassDTO;
+import entities.dto.SchoolCourseDTO;
 import entities.dto.SchoolTeacherDTO;
-import errorhandling.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -59,4 +59,27 @@ public class SchoolTeacherFacade {
         return getEntityManager().createQuery("SELECT new entities.dto.SchoolTeacherDTO(schoolteacher) FROM SchoolTeacher schoolteacher", SchoolTeacherDTO.class).getResultList();
     }
 
+    public List<SchoolClassDTO> getSchoolClassesByTeacherid(Long id) {
+        SchoolTeacher st = getEntityManager().createQuery("SELECT t FROM SchoolTeacher t WHERE t.id = :id", SchoolTeacher.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        List<SchoolClass> schoolClasses = st.getClasses();
+        ArrayList<SchoolClassDTO> scsDTO = new ArrayList();
+        for (SchoolClass sca : schoolClasses) {
+            scsDTO.add(new SchoolClassDTO(sca));
+        }
+        return scsDTO;
+    }
+    
+    public List<SchoolCourseDTO> getSchoolCoursesByTeacherid(Long id) {
+        SchoolTeacher st = getEntityManager().createQuery("SELECT t FROM SchoolTeacher t WHERE t.id = :id", SchoolTeacher.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        List<SchoolClass> schoolClasses = st.getClasses();
+        ArrayList<SchoolCourseDTO> scsDTO = new ArrayList();
+        for (SchoolClass sca : schoolClasses) {
+            scsDTO.add(new SchoolClassDTO(sca).getCourse());
+        }
+        return scsDTO;
+    }
 }
