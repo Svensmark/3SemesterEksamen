@@ -4,6 +4,13 @@
   <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entities.RenameMe</class>
+    <class>entities.SchoolClass</class>
+    <class>entities.SchoolCourse</class>
+    <class>entities.SchoolTeacher</class>
+    <class>entities.SchoolSignedUp</class>
+    <class>entities.SchoolStudent</class>
+    <class>facades.SchoolTeacherFacade</class>
+    <class>entities.dto.ScoolTeacherDTO</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- DO NOT remove the line below. It's not set by the  entityUtils.EMF_Creator -->
