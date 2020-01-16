@@ -49,39 +49,44 @@ public class SchoolTeacherFacade {
     //
     public void addTeacher(String name, String password) {
         EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            User user = new User(name, password);
-            Role userRole = null;
+        if (getTeacherByName(name) == null) {
             try {
-            userRole = em.createQuery("SELECT ss FROM Role ss WHERE ss.roleName = :name", Role.class)
-                    .setParameter("name", "Teacher")
-                    .getSingleResult();
-            } catch (NoResultException e) {
-                userRole = new Role("Teacher");
-                em.persist(userRole);
+                em.getTransaction().begin();
+                User user = new User(name, password);
+                Role userRole = null;
+                try {
+                    userRole = em.createQuery("SELECT ss FROM Role ss WHERE ss.roleName = :name", Role.class)
+                            .setParameter("name", "Teacher")
+                            .getSingleResult();
+                } catch (NoResultException e) {
+                    userRole = new Role("Teacher");
+                    em.persist(userRole);
+                }
+                user.addRole(userRole);
+                em.persist(user);
+
+                em.persist(new SchoolTeacher(name, null));
+                em.getTransaction().commit();
+            } finally {
+                em.close();
             }
-            user.addRole(userRole);
-            em.persist(user);
-            
-            
-            em.persist(new SchoolTeacher(name, null));
-            em.getTransaction().commit();
-        } finally {
-            em.close();
         }
     }
 
     public SchoolTeacherDTO getTeacherByName(String name) {
-        return getEntityManager().createQuery("SELECT new entities.dto.SchoolTeacherDTO(schoolteacher) FROM SchoolTeacher schoolteacher WHERE schoolteacher.name = :name", SchoolTeacherDTO.class)
-                .setParameter("name", name)
-                .getSingleResult();
+        try {
+            return getEntityManager().createQuery("SELECT new entities.dto.SchoolTeacherDTO(schoolteacher) FROM SchoolTeacher schoolteacher WHERE schoolteacher.name = :name", SchoolTeacherDTO.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<SchoolClassDTO> getSchoolClassesByTeacherid(Long id) {
         SchoolTeacher st = getEntityManager().createQuery("SELECT t FROM SchoolTeacher t WHERE t.id = :id", SchoolTeacher.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
+                .setParameter("id", id)
+                .getSingleResult();
         List<SchoolClass> schoolClasses = st.getClasses();
         ArrayList<SchoolClassDTO> scsDTO = new ArrayList();
         for (SchoolClass sca : schoolClasses) {
@@ -89,11 +94,11 @@ public class SchoolTeacherFacade {
         }
         return scsDTO;
     }
-    
+
     public List<SchoolCourseDTO> getSchoolCoursesByTeacherid(Long id) {
         SchoolTeacher st = getEntityManager().createQuery("SELECT t FROM SchoolTeacher t WHERE t.id = :id", SchoolTeacher.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
+                .setParameter("id", id)
+                .getSingleResult();
         List<SchoolClass> schoolClasses = st.getClasses();
         ArrayList<SchoolCourseDTO> scsDTO = new ArrayList();
         for (SchoolClass sca : schoolClasses) {

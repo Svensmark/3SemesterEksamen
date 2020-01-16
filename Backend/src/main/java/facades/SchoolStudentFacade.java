@@ -43,40 +43,35 @@ public class SchoolStudentFacade {
         return instance;
     }
 
-    public static SchoolStudentFacade getSchoolStudentFacade() {
-        if (instance == null) {
-            instance = new SchoolStudentFacade();
-        }
-        return instance;
-    }
-
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     public void addStudent(String name, String email, String password) {
         EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            User user = new User(name, password);
-            Role userRole = null;
+        if (getStudentDTO(name) == null) {
             try {
-            userRole = em.createQuery("SELECT ss FROM Role ss WHERE ss.roleName = :name", Role.class)
-                    .setParameter("name", "Student")
-                    .getSingleResult();
-            } catch (NoResultException e) {
-                userRole = new Role("Student");
-                em.persist(userRole);
-            }
-            
-            user.addRole(userRole);
-            em.persist(user);
+                em.getTransaction().begin();
+                User user = new User(name, password);
+                Role userRole = null;
+                try {
+                    userRole = em.createQuery("SELECT ss FROM Role ss WHERE ss.roleName = :name", Role.class)
+                            .setParameter("name", "Student")
+                            .getSingleResult();
+                } catch (NoResultException e) {
+                    userRole = new Role("Student");
+                    em.persist(userRole);
+                }
 
-            SchoolStudent ss = new SchoolStudent(name, email);
-            em.persist(ss);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+                user.addRole(userRole);
+                em.persist(user);
+
+                SchoolStudent ss = new SchoolStudent(name, email);
+                em.persist(ss);
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
         }
     }
 
@@ -92,18 +87,22 @@ public class SchoolStudentFacade {
         }
     }
 
-    public SchoolStudentDTO getStudentDTO(String name) {
+    public SchoolStudentDTO getStudentDTO(String name) throws NoResultException{
         EntityManager em = emf.createEntityManager();
         try {
             SchoolStudent ss = em.createQuery("SELECT ss FROM SchoolStudent ss WHERE ss.name = :name", SchoolStudent.class)
                     .setParameter("name", name)
                     .getSingleResult();
             return new SchoolStudentDTO(ss);
+        } catch (Exception e) {
+                e.printStackTrace();
+                return null;
         } finally {
             em.close();
         }
+        
     }
-    
+
     public SchoolStudent getStudent(String name) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -125,20 +124,20 @@ public class SchoolStudentFacade {
             for (SchoolSignedUp ssu : l) {
                 String grade = null;
                 Date passed = null;
-                if (ssu.getGrade() != null){
+                if (ssu.getGrade() != null) {
                     grade = ssu.getGrade();
                     passed = ssu.getPassedDate();
                 }
-                
+
                 String name = ssu.getSchoolClass().getCourse().getCourseName();
                 String desc = ssu.getSchoolClass().getCourse().getDescription();
-                
-                sscL.add(new SchoolStudentCourseDTO(name,desc,grade,passed));
+
+                sscL.add(new SchoolStudentCourseDTO(name, desc, grade, passed));
             }
         } finally {
             em.close();
         }
-        
+
         return sscL;
     }
 }

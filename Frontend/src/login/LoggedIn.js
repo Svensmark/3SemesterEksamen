@@ -19,30 +19,23 @@ export default function LoggedIn() {
 
   return (
     <div>
-      {role === "Student" ? (
-        <div>
-          <h2>My Courses</h2>
-          <h3>{username} - {role}</h3>
-          <table className="table">
-            <thead className="thead-dark">
-              <tr>
-                <th scope="col">Course Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Grade</th>
-                <th scope="col">Passed</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((course, index) => <tr key={index}><td>{course.courseName}</td><td>{course.description}</td><td>{course.grade}</td><td>{course.passed}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-          <div>
-            <h2>My Courses</h2>
-            <h3>{username} - {role}</h3>
-          </div>
-        )}
+      <div>
+        <h2>My Courses</h2>
+        <h3>{username} - {role}</h3>
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Course Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Passed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((course, index) => <tr key={index}><td>{course.courseName}</td><td>{course.description}</td><td>{course.grade}</td><td>{course.passed}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

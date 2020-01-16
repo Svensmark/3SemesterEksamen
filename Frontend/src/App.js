@@ -15,6 +15,8 @@ function App() {
         <Switch>
           <Route exact path={URLSettings.getURL("Home")}> <Welcome /> </Route>
           <Route path={URLSettings.getURL("Login")}> <LoginForm /> </Route>
+          <Route path={URLSettings.getURL("Teacher")}> <LoginForm /> </Route>
+          <Route path={URLSettings.getURL("NoMatch")}> <NoMatch /> </Route>
         </Switch>
         <Footer />
       </Router>
@@ -26,10 +28,13 @@ const Header = () => {
   return (
     <ul className="header">
       <li><NavLink activeClassName="active" exact to={URLSettings.getURL("Home")}>Home</NavLink></li>
-      <li><NavLink activeClassName="active" to={URLSettings.getURL("Login")}>Login</NavLink></li>
+      <li><NavLink activeClassName="active" to={URLSettings.getURL("Login")}>Student Login</NavLink></li>
+      <li><NavLink activeClassName="active" to={URLSettings.getURL("Teacher")}>Teacher Login</NavLink></li>
     </ul>
   )
 }
+
+const NoMatch = () => <div>No match!</div>
 
 const Footer = () => {
   return (
