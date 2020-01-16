@@ -1,4 +1,4 @@
-const URL = "http://eksamen1.svense.dk/securitystarter";
+const URL = "http://eksamen1.svense.dk/securitystarter/api";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
