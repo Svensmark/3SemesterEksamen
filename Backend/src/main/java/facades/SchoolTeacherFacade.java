@@ -72,8 +72,10 @@ public class SchoolTeacherFacade {
         }
     }
 
-    public List<SchoolTeacherDTO> getAllTeachers() {
-        return getEntityManager().createQuery("SELECT new entities.dto.SchoolTeacherDTO(schoolteacher) FROM SchoolTeacher schoolteacher", SchoolTeacherDTO.class).getResultList();
+    public SchoolTeacherDTO getTeacherByName(String name) {
+        return getEntityManager().createQuery("SELECT new entities.dto.SchoolTeacherDTO(schoolteacher) FROM SchoolTeacher schoolteacher WHERE schoolteacher.name = :name", SchoolTeacherDTO.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
     public List<SchoolClassDTO> getSchoolClassesByTeacherid(Long id) {

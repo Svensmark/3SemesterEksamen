@@ -91,6 +91,7 @@ public class SetupTestUsers {
             SchoolTeacherFacade facade2 = SchoolTeacherFacade.getSchoolTeacherFacade(emf);
             facade2.addTeacher("Deku", "99");
 
+            
             em.getTransaction().commit();
         } finally {
             em.close();
