@@ -29,7 +29,6 @@ public class SchoolTeacher implements Serializable {
     private Long id;
     private String name;
     
-    @ManyToMany(mappedBy = "teachers")
     private List<SchoolClass> classes;
 
     

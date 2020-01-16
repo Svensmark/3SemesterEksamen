@@ -29,10 +29,11 @@ public class SchoolClass implements Serializable {
     private Long id;
     private int semester;
     private int maxNumbOfStudents;
+    
     @ManyToOne
     private SchoolCourse course;
     
-    @ManyToMany
+    @ManyToMany(mappedBy="classes")
     private List<SchoolTeacher> teachers;
     
     @OneToMany(mappedBy="schoolClass")

@@ -16,7 +16,7 @@ public class SetupTestUsers {
 
     public void DOIT() {
 
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
         EntityManager em = emf.createEntityManager();
         SchoolStudentFacade facade = SchoolStudentFacade.getSchoolStudentFacade(emf);
 
