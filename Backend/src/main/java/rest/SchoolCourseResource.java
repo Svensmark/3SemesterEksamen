@@ -14,7 +14,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
-import utils.SetupTestUsers;
 
 /**
  * REST Web Service
@@ -53,8 +52,7 @@ public class SchoolCourseResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String populate() {
-        SetupTestUsers n = new SetupTestUsers();
-        n.DOIT();
+        FACADE.populate();
         return "{\"msg\": \"Database populated\"}";
     }
     
