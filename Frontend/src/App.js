@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-do
 import './style/App.css';
 import LoginForm from './login/LoginForm';
 import URLSettings from './settings'
-import Data from './Data';
 
 function App() {
 
@@ -42,9 +41,6 @@ const Footer = () => {
   )
 }
 
-const About = () => <div>About</div>
-
-const NoMatch = () => <div>No match!</div>
 
 //If Welcome function reaches about 10 lines of code place the function in separate file.
 function Welcome() {

@@ -19,7 +19,7 @@ export default function LoggedIn() {
 
   return (
     <div>
-      {role == "Student" ? (
+      {role === "Student" ? (
         <div>
           <h2>My Courses</h2>
           <h3>{username} - {role}</h3>
