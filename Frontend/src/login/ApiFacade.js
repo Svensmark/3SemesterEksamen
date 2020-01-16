@@ -1,5 +1,5 @@
-//const URL = "https://svense.dk/Eksamen";
-const URL = "http://localhost:8080/securitystarter";
+const URL = "https://svense.dk/Eksamen";
+//const URL = "http://localhost:8080/securitystarter";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
