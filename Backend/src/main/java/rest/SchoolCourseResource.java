@@ -41,6 +41,7 @@ public class SchoolCourseResource {
         return "{\"msg\": \"School Course\"}";
     }
     
+    
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
