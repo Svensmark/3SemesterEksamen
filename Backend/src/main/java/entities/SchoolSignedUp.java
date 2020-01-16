@@ -27,13 +27,12 @@ public class SchoolSignedUp implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String grade;
     @Temporal(TemporalType.DATE)
     private Date passedDate;
-    
     @ManyToOne
     private SchoolStudent student;
-
     @ManyToOne
     private SchoolClass schoolClass;
     

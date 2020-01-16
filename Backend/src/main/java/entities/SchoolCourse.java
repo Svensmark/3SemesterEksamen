@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class SchoolCourse implements Serializable {
     private String description;
     
     @OneToMany(mappedBy ="course")
-    private List<SchoolClass> classes;
+    private List<SchoolClass> classes = new ArrayList();
     
 
     
@@ -88,11 +89,7 @@ public class SchoolCourse implements Serializable {
         this.classes.add(sc);
     }
 
-    @Override
-    public String toString() {
-        return "SchoolCourse{" + "id=" + id + ", courseName=" + courseName + ", description=" + description + ", classes=" + classes + '}';
-    }
-
+    
     
 
     

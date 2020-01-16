@@ -55,7 +55,6 @@ public class SchoolCourseFacade {
         ArrayList<SchoolCourseDTO> scdto = new ArrayList();
         for (SchoolCourse schoolCourse : sc) {
             SchoolCourseDTO dto = new SchoolCourseDTO(schoolCourse);
-            System.out.println(dto);
             scdto.add(dto);
         }
         return scdto;

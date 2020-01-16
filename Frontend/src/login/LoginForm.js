@@ -22,10 +22,12 @@ export default function App() {
     return (
         <div>
             {!loggedIn ? 
-                (<div>
-                <Login login={login} />
-                <p>{error}</p>
-                </div>) : (<div>
+                (
+                <div>
+                    <Login login={login} />
+                    <p>{error}</p>
+                </div>) : (
+                <div>
                     <LoggedIn />
                     <button className="btn btn-primary" onClick={logout}>Logout</button>
                 </div>)}

@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/securitystarter";
+const URL = "http://eksamen1.svense.dk/securitystarter";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -56,11 +56,16 @@ function ApiFacade() {
         return fetch(URL + "/api/SchoolCourse/all", makeOptions("GET")).then(handleHttpErrors);
     }
 
+    const fetchData2 = (name) => {
+        return fetch(URL + "/api/SchoolStudent/name/" + name, makeOptions("GET")).then(handleHttpErrors);
+    }
+
     return {
         login,
         logout,
         fetchUser,
-        fetchData1
+        fetchData1,
+        fetchData2
     }
 
 }

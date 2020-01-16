@@ -90,7 +90,7 @@ public class TeacherFacadeTest {
         int before = em.createQuery("Select SchoolTeacher from SchoolTeacher schoolteacher", SchoolTeacher.class).getResultList().size();
         List<SchoolClass> sc = new ArrayList();
         SchoolTeacher st1 = new SchoolTeacher("Teacher1", sc);
-        facade.addTeacher(new SchoolTeacherDTO(st1));
+        facade.addTeacher(new SchoolTeacherDTO(st1).getName(),"randompassword");
         int after = em.createQuery("Select SchoolTeacher from SchoolTeacher schoolteacher", SchoolTeacher.class).getResultList().size();;
         assertEquals(before+1,after);
     }

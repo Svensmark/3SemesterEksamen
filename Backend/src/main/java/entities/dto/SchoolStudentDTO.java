@@ -6,6 +6,7 @@
 package entities.dto;
 
 import entities.SchoolStudent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,23 +14,19 @@ import java.util.List;
  * @author emilt
  */
 public class SchoolStudentDTO {
-    
+
     //
+    private Long id;
     private String name;
     private String email;
-    private List<SchoolSignedUpDTO> sudto;
-    
-    
+
     //
     public SchoolStudentDTO(SchoolStudent st) {
         this.name = st.getName();
         this.email = st.getEmail();
-        for (int i = 0; i < st.getSignups().size(); ++i) {
-            sudto.add(new SchoolSignedUpDTO(st.getSignups().get(i)));
-        }
+        this.id = st.getId();
     }
-    
-    
+
     //
     public String getName() {
         return name;
@@ -47,14 +44,12 @@ public class SchoolStudentDTO {
         this.email = email;
     }
 
-    public List<SchoolSignedUpDTO> getSudto() {
-        return sudto;
+    public Long getId() {
+        return id;
     }
 
-    public void setSudto(List<SchoolSignedUpDTO> sudto) {
-        this.sudto = sudto;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    
-    
 }

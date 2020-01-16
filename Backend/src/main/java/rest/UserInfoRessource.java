@@ -33,7 +33,7 @@ public class UserInfoRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
-    @RolesAllowed({"user", "admin"})
+    @RolesAllowed({"Student", "Teacher"})
     public UserDTO getFromUser() {
         UserPrincipal userPrincipal = (UserPrincipal)securityContext.getUserPrincipal();
         UserDTO user = new UserDTO(userPrincipal.getName(), userPrincipal.getRoles());

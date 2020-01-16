@@ -35,7 +35,7 @@ public class SchoolClass implements Serializable {
     @ManyToMany
     private List<SchoolTeacher> teachers;
     
-    @OneToMany
+    @OneToMany(mappedBy="schoolClass")
     private List<SchoolSignedUp> signedUps;
     
     
@@ -49,6 +49,12 @@ public class SchoolClass implements Serializable {
         this.course = course;
         this.teachers = teachers;
         this.signedUps = signedUps;
+    }
+    
+    public SchoolClass(int semester, int maxNumb, SchoolCourse course) {
+        this.semester = semester;
+        this.maxNumbOfStudents = maxNumb;
+        this.course = course;
     }
     
 
@@ -101,6 +107,8 @@ public class SchoolClass implements Serializable {
         this.signedUps = signedUps;
     }
 
-    
+    public void addSignedUp(SchoolSignedUp su) {
+        this.signedUps.add(su);
+    }
     
 }

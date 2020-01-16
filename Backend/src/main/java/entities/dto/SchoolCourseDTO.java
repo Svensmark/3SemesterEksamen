@@ -28,10 +28,7 @@ public class SchoolCourseDTO {
         this.description = sco.getDescription();
         if (sco.getClasses() != null) {
             if (!sco.getClasses().isEmpty()) {
-                for (int i = 0; i < sco.getClasses().size(); ++i) {
-                    this.classes.add(new SchoolClassDTO(sco.getClasses().get(i)));
-                }
-                this.amountOfClasses = classes.size();
+                this.amountOfClasses = sco.getClasses().size();
             }
         }
         this.id = sco.getId();

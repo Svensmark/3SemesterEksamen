@@ -28,8 +28,8 @@ public class SchoolStudent implements Serializable {
     private String name;
     private String email;
     
-    @OneToMany
-    private List<SchoolSignedUp> signups;
+    @OneToMany(mappedBy="student")
+    private List<SchoolSignedUp> signedUps;
 
     
     //
@@ -40,7 +40,12 @@ public class SchoolStudent implements Serializable {
     public SchoolStudent(String name, String email, List<SchoolSignedUp> signups) {
         this.name = name;
         this.email = email;
-        this.signups = signups;
+        this.signedUps = signups;
+    }
+    
+    public SchoolStudent(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
     
     
@@ -71,12 +76,15 @@ public class SchoolStudent implements Serializable {
     }
 
     public List<SchoolSignedUp> getSignups() {
-        return signups;
+        return signedUps;
     }
 
     public void setSignups(List<SchoolSignedUp> signups) {
-        this.signups = signups;
+        this.signedUps = signups;
     }
-   
+    
+    public void addSignedUp(SchoolSignedUp su) {
+        this.signedUps.add(su);
+    }
     
 }

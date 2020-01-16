@@ -5,8 +5,8 @@
  */
 package rest;
 
-import entities.dto.SchoolCourseDTO;
-import facades.SchoolCourseFacade;
+import entities.dto.SchoolStudentCourseDTO;
+import facades.SchoolStudentFacade;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Produces;
@@ -21,9 +21,10 @@ import utils.EMF_Creator;
  *
  * @author emilt
  */
-@Path("SchoolCourse")
-public class SchoolCourseResource {
+@Path("SchoolStudent")
+public class SchoolStudentResource {
 
+    
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
             "pu",
             "jdbc:mysql://localhost:3307/eksamen1",
@@ -31,22 +32,23 @@ public class SchoolCourseResource {
             "ax2",
             EMF_Creator.Strategy.CREATE);
     
-    private static final SchoolCourseFacade FACADE =  SchoolCourseFacade.getSchoolCourseFacade(EMF);
+    private static final SchoolStudentFacade FACADE =  SchoolStudentFacade.getSchoolStudentFacade(EMF);
 
-    public SchoolCourseResource() {
+    
+    
+    public SchoolStudentResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        return "{\"msg\": \"School Course\"}";
+        return "{\"msg\": \"Students\"}";
     }
     
-    @Path("all")
+    @Path("name/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<SchoolCourseDTO> getAllCourses() {
-        return FACADE.getAllCourses();
+    public List<SchoolStudentCourseDTO> getAllCourses(@PathParam("name") String name) {
+        return FACADE.getStudentCourses(FACADE.getStudent(name).getId());
     }
-    
 }

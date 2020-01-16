@@ -5,8 +5,10 @@
  */
 package facades;
 
+import entities.Role;
 import entities.SchoolClass;
 import entities.SchoolTeacher;
+import entities.User;
 import entities.dto.SchoolClassDTO;
 import entities.dto.SchoolCourseDTO;
 import entities.dto.SchoolTeacherDTO;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -44,11 +47,25 @@ public class SchoolTeacherFacade {
     }
 
     //
-    public void addTeacher(SchoolTeacherDTO stdto) {
+    public void addTeacher(String name, String password) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(new SchoolTeacher(stdto.getName(), null));
+            User user = new User(name, password);
+            Role userRole = null;
+            try {
+            userRole = em.createQuery("SELECT ss FROM Role ss WHERE ss.roleName = :name", Role.class)
+                    .setParameter("name", "Teacher")
+                    .getSingleResult();
+            } catch (NoResultException e) {
+                userRole = new Role("Teacher");
+                em.persist(userRole);
+            }
+            user.addRole(userRole);
+            em.persist(user);
+            
+            
+            em.persist(new SchoolTeacher(name, null));
             em.getTransaction().commit();
         } finally {
             em.close();

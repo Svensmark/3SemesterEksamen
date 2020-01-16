@@ -27,8 +27,8 @@ public class SchoolSignedUpDTO {
     public SchoolSignedUpDTO(SchoolSignedUp su) {
         this.grade = su.getGrade();
         this.passedDate = su.getPassedDate();
-        this.student = new SchoolStudentDTO(su.getStudent());
-        this.schoolClass = new SchoolClassDTO(su.getSchoolClass());
+        //this.student = new SchoolStudentDTO(su.getStudent());
+        //this.schoolClass = new SchoolClassDTO(su.getSchoolClass());
     }
     
     
