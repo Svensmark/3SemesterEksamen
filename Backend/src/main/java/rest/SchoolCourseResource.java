@@ -12,9 +12,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
+import utils.SetupTestUsers;
 
 /**
  * REST Web Service
@@ -47,6 +47,15 @@ public class SchoolCourseResource {
     @Produces({MediaType.APPLICATION_JSON})
     public List<SchoolCourseDTO> getAllCourses() {
         return FACADE.getAllCourses();
+    }
+    
+    @Path("populate")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String populate() {
+        SetupTestUsers n = new SetupTestUsers();
+        n.DOIT();
+        return "{\"msg\": \"Database populated\"}";
     }
     
 }

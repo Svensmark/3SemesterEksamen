@@ -1,4 +1,5 @@
-const URL = "http://svense.dk/securitystarter";
+const URL = "http://svense.dk/securitystarter/api";
+//const URL = "http://localhost:8080/securitystarter";
 
 function handleHttpErrors(res) {
     if (!res.ok) {

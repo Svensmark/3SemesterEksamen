@@ -14,14 +14,14 @@ import javax.persistence.EntityManagerFactory;
 
 public class SetupTestUsers {
 
-    public static void main(String[] args) {
+    public void DOIT() {
 
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
         EntityManager em = emf.createEntityManager();
         SchoolStudentFacade facade = SchoolStudentFacade.getSchoolStudentFacade(emf);
 
-        em.getTransaction().begin();
         try {
+            em.getTransaction().begin();
             SchoolCourse sc1 = new SchoolCourse("Course name1", "Fall 2010");
             SchoolCourse sc2 = new SchoolCourse("Course name2", "Winter 2010");
             SchoolCourse sc3 = new SchoolCourse("Course name3", "Spring 2099");
@@ -89,9 +89,8 @@ public class SetupTestUsers {
             em.persist(ssu9);
 
             SchoolTeacherFacade facade2 = SchoolTeacherFacade.getSchoolTeacherFacade(emf);
-            
             facade2.addTeacher("Deku", "99");
-            
+
             em.getTransaction().commit();
         } finally {
             em.close();
